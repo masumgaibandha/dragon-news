@@ -1,18 +1,33 @@
-import { useState } from "react";
 import { FaRegBookmark, FaShareAlt, FaEye, FaStar } from "react-icons/fa";
+import { Link } from "react-router";
 
 export default function NewsCard({ news }) {
-  const { total_view, author, thumbnail_url, details, title } = news;
-  const [expanded, setExpanded] = useState(false);
+  const {
+    id, 
+    total_view,
+    author,
+    thumbnail_url,
+    details,
+    title, // new/optional
+  } = news;
 
+  // Format date
   const date = new Date(author.published_date).toLocaleDateString("en-GB", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
+  // Title fallback: use provided title or first 120 chars of details
+  const headline =
+    title && title.trim().length > 0
+      ? title
+      : details
+      ? details.trim().slice(0, 120) + (details.length > 120 ? "..." : "")
+      : "Untitled News";
+
   return (
-    <div className="card bg-base-100 shadow-md rounded-2xl overflow-hidden mb-6">
+    <div className="card bg-base-100 shadow-md border border-gray-200 rounded-2xl overflow-hidden mb-6">
       {/* Header */}
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
@@ -35,7 +50,7 @@ export default function NewsCard({ news }) {
       {/* Title */}
       <div className="px-4">
         <h3 className="text-lg md:text-xl font-bold text-gray-800 leading-tight mb-3">
-          {title}
+          {headline}
         </h3>
       </div>
 
@@ -51,13 +66,11 @@ export default function NewsCard({ news }) {
       {/* Body */}
       <div className="card-body">
         <p className="text-sm text-gray-700">
-          {expanded ? details : details.slice(0, 200) + "..."}
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-orange-500 font-semibold hover:underline ml-1"
-          >
-            {expanded ? "Show Less" : "Read More"}
-          </button>
+          {details.slice(0, 200)}...
+          <Link to= {`/news-details/${id}`} className="text-orange-500 cursor-pointer font-semibold">
+            {" "}
+            Read More
+          </Link>
         </p>
 
         {/* Footer */}

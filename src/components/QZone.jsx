@@ -11,8 +11,9 @@ const QZone = () => {
         <img src={swimmingImage} alt="" />
         <img src={classImmage} alt="" />
         <img src={playgroundImage} alt="" />
-        <img src={addImage} alt="" />
+        
       </div>
+      
     </div>
   )
 }

@@ -11,6 +11,7 @@ const HomeLayOut = () => {
     <div>
       <header>
         <Header></Header>
+        {import.meta.env.VITE_name}
         <section className='container mx-auto my-3'>
           <LatestNews></LatestNews>
         </section>
@@ -19,7 +20,7 @@ const HomeLayOut = () => {
         </nav>
       </header>
       <main className='container mx-auto gap-5 grid grid-cols-12 mt-10 gap-5'>
-        <aside className='col-span-3 '>
+        <aside className='col-span-3 sticky h-fit top-0'>
           <LeftAside></LeftAside>
         </aside>
 
@@ -27,7 +28,7 @@ const HomeLayOut = () => {
           <Outlet></Outlet>
         </section>
 
-        <aside className='col-span-3'>
+        <aside className='col-span-3 sticky h-fit top-0'>
           <RightAside></RightAside>
         </aside>
       </main>
